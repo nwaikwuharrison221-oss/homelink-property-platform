@@ -23,6 +23,8 @@ class _EmailVerificationScreenState
     await FirebaseAuth.instance.currentUser!
         .sendEmailVerification();
 
+    if (!mounted) return;
+
     setState(() => isSending = false);
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -36,6 +38,8 @@ class _EmailVerificationScreenState
     setState(() => isChecking = true);
 
     await FirebaseAuth.instance.currentUser!.reload();
+
+    if (!mounted) return;
 
     final user = FirebaseAuth.instance.currentUser;
 
@@ -120,6 +124,8 @@ class _EmailVerificationScreenState
             TextButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
+
+                if (!context.mounted) return;
 
                 Navigator.pushAndRemoveUntil(
                   context,
