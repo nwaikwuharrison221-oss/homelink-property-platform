@@ -63,6 +63,8 @@ class _SignupScreenState extends State<SignupScreen> {
       'createdAt': FieldValue.serverTimestamp(),
     });
 
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Account created successfully"),
@@ -89,11 +91,15 @@ class _SignupScreenState extends State<SignupScreen> {
         message = "Invalid email address";
       }
 
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
       );
 
     } catch (e) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.toString())),
       );
