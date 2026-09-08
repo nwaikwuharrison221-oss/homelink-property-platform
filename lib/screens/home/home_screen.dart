@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'property_details_screen.dart';
 import '../property/add_property_screen.dart';
 import '../../services/firestore_service.dart';
 import '../../main.dart';
@@ -48,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .collection('users')
         .doc(user.uid)
         .get();
+
+    if (!mounted) return;
 
 if (doc.exists) {
 final data = doc.data();
@@ -110,6 +111,8 @@ isLoadingRole = false;
             icon: const Icon(Icons.logout),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
+
+              if (!context.mounted) return;
 
               Navigator.pushAndRemoveUntil(
                 context,
