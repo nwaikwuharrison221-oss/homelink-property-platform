@@ -150,7 +150,7 @@ class _MyPropertiesScreenState extends State<MyPropertiesScreen> {
                             width: double.infinity,
                             height: 180,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) {
+                            errorBuilder: (_, _, _) {
                               return Container(
                                 height: 180,
                                 alignment: Alignment.center,

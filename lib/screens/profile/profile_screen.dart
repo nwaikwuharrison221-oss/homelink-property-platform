@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
 
           Center(
             child: Text(
-              user?.email ?? "No Email",
+              user.email ?? "No Email",
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 16,

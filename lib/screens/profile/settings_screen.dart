@@ -129,7 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'notificationsEnabled': value,
                   });
                 } catch (e) {
-                  if (!mounted) return;
+                  if (!context.mounted) return;
 
                   setState(() {
                     notificationsEnabled = !value;

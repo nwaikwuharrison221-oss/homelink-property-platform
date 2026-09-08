@@ -42,10 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       await userCredential.user!.reload();
 
-      User? user = FirebaseAuth.instance.currentUser;
+      final user = FirebaseAuth.instance.currentUser;
 
-      print("Email: ${user?.email}");
-      print("Verified: ${user?.emailVerified}");
+      if (!mounted) return;
 
       if (user != null && !user.emailVerified) {
         Navigator.pushReplacement(
@@ -84,10 +83,14 @@ class _LoginScreenState extends State<LoginScreen> {
         message = "Invalid email or password";
       }
 
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
       );
     } catch (e) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.toString())),
       );

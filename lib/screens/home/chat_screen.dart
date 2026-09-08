@@ -144,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           message: text,
                         );
                       } catch (e) {
-                        if (!mounted) return;
+                        if (!context.mounted) return;
 
                         messageController.text = text;
 

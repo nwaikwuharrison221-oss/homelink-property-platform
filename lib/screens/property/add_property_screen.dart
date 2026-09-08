@@ -117,7 +117,9 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
 
       final position =
       await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
       );
 
       if (!mounted) return;
@@ -482,7 +484,7 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
               const SizedBox(height: 20),
 
               DropdownButtonFormField<String>(
-                value: selectedCategory,
+                initialValue: selectedCategory,
                 decoration: const InputDecoration(
                   labelText: "Category",
                   border: OutlineInputBorder(),
