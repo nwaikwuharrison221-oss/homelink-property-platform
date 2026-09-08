@@ -195,7 +195,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
               const SizedBox(height: 15),
 
               DropdownButtonFormField<String>(
-                value: selectedCategory,
+                initialValue: selectedCategory,
                 decoration: const InputDecoration(
                   labelText: "Category",
                   border: OutlineInputBorder(),
