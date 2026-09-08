@@ -2,6 +2,8 @@
 
 HomeLink is a Flutter and Firebase property discovery, rental, and booking platform built for the Nigerian property market, with room to expand internationally.
 
+![HomeLink welcome screen](docs/screenshots/homelink-welcome.png)
+
 ## Project status
 
 HomeLink is under active development. This repository documents my hands-on Flutter development work and the decisions behind the application. I can explain the code structure, Firebase integration, user flows, and features implemented here.
