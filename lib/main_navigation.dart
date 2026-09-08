@@ -3,7 +3,6 @@ import 'screens/home/home_screen.dart';
 import 'screens/home/favorites_screen.dart';
 import 'screens/messages_screen.dart';
 import 'screens/profile/profile_screen.dart';
-import 'screens/home/inspection_requests_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
