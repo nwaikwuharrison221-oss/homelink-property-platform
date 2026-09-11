@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 class AddPropertyScreen extends StatefulWidget {
 
@@ -115,20 +116,54 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
         return;
       }
 
-      final position =
-      await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.high,
-        ),
-      );
+     final position =
+await Geolocator.getCurrentPosition(
+  locationSettings: const LocationSettings(
+    accuracy: LocationAccuracy.high,
+  ),
+);
 
-      if (!mounted) return;
+String capturedAddress =
+    "${position.latitude.toStringAsFixed(6)}, "
+    "${position.longitude.toStringAsFixed(6)}";
 
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-        locationAccuracy = position.accuracy;
-      });
+try {
+  final placemarks = await Geocoding().placemarkFromCoordinates(
+    position.latitude,
+    position.longitude,
+  );
+
+  if (placemarks.isNotEmpty) {
+    final place = placemarks.first;
+
+    final addressParts = <String?>[
+      place.street,
+      place.subLocality,
+      place.locality,
+      place.administrativeArea,
+      place.country,
+    ]
+        .whereType<String>()
+        .where((part) => part.trim().isNotEmpty)
+        .toSet()
+        .toList();
+
+    if (addressParts.isNotEmpty) {
+      capturedAddress = addressParts.join(", ");
+    }
+  }
+} catch (_) {
+  // Coordinates remain available if address lookup fails.
+}
+
+if (!mounted) return;
+
+setState(() {
+  latitude = position.latitude;
+  longitude = position.longitude;
+  locationAccuracy = position.accuracy;
+  locationController.text = capturedAddress;
+});
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

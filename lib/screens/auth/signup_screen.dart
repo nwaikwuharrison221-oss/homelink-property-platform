@@ -20,6 +20,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  String selectedRole = 'tenant';
+
   Future<void> signUp() async {
     // Check if passwords match
     if (passwordController.text.trim() !=
@@ -51,7 +53,7 @@ class _SignupScreenState extends State<SignupScreen> {
       'phone': phoneController.text.trim(),
 
       // User role
-      'role': 'tenant',
+      'role': selectedRole,
 
       // Account verification status
       'isVerified': false,
@@ -166,6 +168,34 @@ class _SignupScreenState extends State<SignupScreen> {
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.phone),
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            DropdownButtonFormField<String>(
+              initialValue: selectedRole,
+              decoration: const InputDecoration(
+                labelText: "I am registering as",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.account_circle),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: 'tenant',
+                  child: Text("Tenant"),
+                ),
+                DropdownMenuItem(
+                  value: 'landlord',
+                  child: Text("Landlord"),
+                ),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    selectedRole = value;
+                  });
+                }
+              },
             ),
 
             const SizedBox(height: 20),
