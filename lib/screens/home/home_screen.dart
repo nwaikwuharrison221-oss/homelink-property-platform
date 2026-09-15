@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final FirestoreService _firestoreService = FirestoreService();
 
   String searchQuery = "";
@@ -50,20 +49,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (!mounted) return;
 
-if (doc.exists) {
-final data = doc.data();
+    if (doc.exists) {
+      final data = doc.data();
 
-setState(() {
-userRole = data?['role'] ?? "tenant";
-isLoadingRole = false;
-});
-} else {
-setState(() {
-userRole = "tenant";
-isLoadingRole = false;
-});
-}
+      setState(() {
+        userRole = data?['role'] ?? "tenant";
+        isLoadingRole = false;
+      });
+    } else {
+      setState(() {
+        userRole = "tenant";
+        isLoadingRole = false;
+      });
+    }
   } //
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -90,7 +90,6 @@ isLoadingRole = false;
         title: const Text("HomeLink"),
         centerTitle: true,
         actions: [
-
           if (userRole == "landlord" ||
               userRole == "agent" ||
               userRole == "admin")
@@ -100,9 +99,7 @@ isLoadingRole = false;
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => InspectionRequestsScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => InspectionRequestsScreen()),
                 );
               },
             ),
@@ -116,10 +113,8 @@ isLoadingRole = false;
 
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const WelcomeScreen(),
-                ),
-                    (route) => false,
+                MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                (route) => false,
               );
             },
           ),
@@ -128,20 +123,18 @@ isLoadingRole = false;
       floatingActionButton: isLoadingRole
           ? null
           : (userRole == "landlord" ||
-          userRole == "agent" ||
-          userRole == "admin")
+                userRole == "agent" ||
+                userRole == "admin")
           ? FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const AddPropertyScreen(),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-      )
+              backgroundColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AddPropertyScreen()),
+                );
+              },
+              child: const Icon(Icons.add),
+            )
           : null,
 
       body: SingleChildScrollView(
@@ -149,29 +142,19 @@ isLoadingRole = false;
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Text(
               greeting,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 5),
 
-            Text(
-              user?.email ?? "",
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
-            ),
+            Text(user?.email ?? "", style: const TextStyle(color: Colors.grey)),
 
             const SizedBox(height: 25),
 
             Row(
               children: [
-
                 Expanded(
                   child: TextField(
                     textInputAction: TextInputAction.search,
@@ -190,13 +173,13 @@ isLoadingRole = false;
                       prefixIcon: const Icon(Icons.search),
                       suffixIcon: searchQuery.isNotEmpty
                           ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          setState(() {
-                            searchQuery = "";
-                          });
-                        },
-                      )
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                setState(() {
+                                  searchQuery = "";
+                                });
+                              },
+                            )
                           : null,
                       filled: true,
                       fillColor: Colors.white,
@@ -229,7 +212,6 @@ isLoadingRole = false;
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
                               const Text(
                                 "Filter Properties",
                                 style: TextStyle(
@@ -283,10 +265,10 @@ isLoadingRole = false;
                                 items: [1, 2, 3, 4, 5]
                                     .map(
                                       (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text("$e Bedroom"),
-                                  ),
-                                )
+                                        value: e,
+                                        child: Text("$e Bedroom"),
+                                      ),
+                                    )
                                     .toList(),
                                 onChanged: (value) {
                                   setState(() {
@@ -306,10 +288,10 @@ isLoadingRole = false;
                                 items: [1, 2, 3, 4, 5]
                                     .map(
                                       (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text("$e Bathroom"),
-                                  ),
-                                )
+                                        value: e,
+                                        child: Text("$e Bathroom"),
+                                      ),
+                                    )
                                     .toList(),
                                 onChanged: (value) {
                                   setState(() {
@@ -327,12 +309,30 @@ isLoadingRole = false;
                                 hint: const Text("No Limit"),
                                 isExpanded: true,
                                 items: const [
-                                  DropdownMenuItem(value: 100000, child: Text("₦100,000")),
-                                  DropdownMenuItem(value: 250000, child: Text("₦250,000")),
-                                  DropdownMenuItem(value: 500000, child: Text("₦500,000")),
-                                  DropdownMenuItem(value: 1000000, child: Text("₦1,000,000")),
-                                  DropdownMenuItem(value: 2000000, child: Text("₦2,000,000")),
-                                  DropdownMenuItem(value: 5000000, child: Text("₦5,000,000")),
+                                  DropdownMenuItem(
+                                    value: 100000,
+                                    child: Text("₦100,000"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 250000,
+                                    child: Text("₦250,000"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 500000,
+                                    child: Text("₦500,000"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 1000000,
+                                    child: Text("₦1,000,000"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 2000000,
+                                    child: Text("₦2,000,000"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 5000000,
+                                    child: Text("₦5,000,000"),
+                                  ),
                                 ],
                                 onChanged: (value) {
                                   setState(() {
@@ -345,7 +345,6 @@ isLoadingRole = false;
 
                               Row(
                                 children: [
-
                                   Expanded(
                                     child: OutlinedButton(
                                       onPressed: () {
@@ -390,7 +389,6 @@ isLoadingRole = false;
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -507,10 +505,7 @@ isLoadingRole = false;
 
             const Text(
               "Featured Properties",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 15),
@@ -519,9 +514,7 @@ isLoadingRole = false;
               stream: _firestoreService.getProperties(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (snapshot.hasError) {
@@ -533,73 +526,72 @@ isLoadingRole = false;
                 }
 
                 final properties = snapshot.data!.docs
-                    .map((doc) => Property.fromFirestore(
-                  doc.id,
-                  doc.data() as Map<String, dynamic>,
-                ))
+                    .map(
+                      (doc) => Property.fromFirestore(
+                        doc.id,
+                        doc.data() as Map<String, dynamic>,
+                      ),
+                    )
                     .where((property) {
-                  if (!property.available) {
-                    return false;
-                  }
+                      if (!property.available) {
+                        return false;
+                      }
 
-                  final matchesSearch =
-                      searchQuery.isEmpty ||
+                      final matchesSearch =
+                          searchQuery.isEmpty ||
                           property.title.toLowerCase().contains(searchQuery) ||
-                          property.location.toLowerCase().contains(searchQuery) ||
-                          property.category.toLowerCase().contains(searchQuery) ||
-                          property.description.toLowerCase().contains(searchQuery) ||
+                          property.location.toLowerCase().contains(
+                            searchQuery,
+                          ) ||
+                          property.category.toLowerCase().contains(
+                            searchQuery,
+                          ) ||
+                          property.description.toLowerCase().contains(
+                            searchQuery,
+                          ) ||
                           property.price.toString().contains(searchQuery) ||
                           property.bedrooms.toString().contains(searchQuery) ||
                           property.bathrooms.toString().contains(searchQuery);
 
-                  final matchesCategory =
-                      selectedCategory.isEmpty ||
+                      final matchesCategory =
+                          selectedCategory.isEmpty ||
                           property.category == selectedCategory;
 
-                  final matchesBedrooms =
-                      selectedBedrooms == null ||
+                      final matchesBedrooms =
+                          selectedBedrooms == null ||
                           property.bedrooms == selectedBedrooms;
 
-                  final matchesBathrooms =
-                      selectedBathrooms == null ||
+                      final matchesBathrooms =
+                          selectedBathrooms == null ||
                           property.bathrooms == selectedBathrooms;
 
-                  final matchesPrice =
-                      maxPrice == null ||
-                          property.price <= maxPrice!;
+                      final matchesPrice =
+                          maxPrice == null || property.price <= maxPrice!;
 
-                  return matchesSearch &&
-                      matchesCategory &&
-                      matchesBedrooms &&
-                      matchesBathrooms &&
-                      matchesPrice;
-                })
+                      return matchesSearch &&
+                          matchesCategory &&
+                          matchesBedrooms &&
+                          matchesBathrooms &&
+                          matchesPrice;
+                    })
                     .toList();
 
                 switch (selectedSort) {
                   case "Price Low to High":
-                    properties.sort(
-                          (a, b) => a.price.compareTo(b.price),
-                    );
+                    properties.sort((a, b) => a.price.compareTo(b.price));
                     break;
 
                   case "Price High to Low":
-                    properties.sort(
-                          (a, b) => b.price.compareTo(a.price),
-                    );
+                    properties.sort((a, b) => b.price.compareTo(a.price));
                     break;
 
                   case "Most Bedrooms":
-                    properties.sort(
-                          (a, b) => b.bedrooms.compareTo(a.bedrooms),
-                    );
+                    properties.sort((a, b) => b.bedrooms.compareTo(a.bedrooms));
                     break;
 
                   default:
                     break;
                 }
-
-
 
                 if (properties.isEmpty) {
                   return const Center(
